@@ -13,22 +13,19 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white border-b border-[#E5E5E5] sticky top-0 z-50">
+    <nav className="bg-white border-b-2 border-orange-500 sticky top-0 z-50 shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
         <div className="flex items-center justify-between">
-          <Link to="/" className="flex items-center" data-testid="logo-link">
-            <h1 className="text-xl sm:text-2xl font-heading font-black text-[#050505] tracking-tight">
+          <Link to="/" className="flex items-center gap-2" data-testid="logo-link">
+            <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-lg flex items-center justify-center">
+              <span className="text-white font-black text-xl">A</span>
+            </div>
+            <h1 className="text-xl sm:text-2xl font-heading font-black text-gray-900 tracking-tight">
               AdAdda
             </h1>
           </Link>
 
           <div className="flex items-center gap-3 sm:gap-6">
-            <Link to="/ads" data-testid="browse-ads-link" className="hidden sm:block">
-              <span className="text-sm font-medium text-[#525252] hover:text-[#06B6D4] transition-colors duration-200">
-                Browse Ads
-              </span>
-            </Link>
-
             {user ? (
               <>
                 <Link 
@@ -39,22 +36,22 @@ const Navbar = () => {
                   <Button 
                     variant="ghost" 
                     size="sm" 
-                    className="text-[#525252] hover:text-[#06B6D4] hover:bg-transparent"
+                    className="text-gray-700 hover:text-orange-600 hover:bg-orange-50"
                   >
                     <LayoutDashboard className="w-4 h-4 mr-2" />
                     Dashboard
                   </Button>
                 </Link>
                 <div className="flex items-center gap-2 sm:gap-3">
-                  <div className="hidden sm:flex items-center gap-2" data-testid="user-info">
-                    <User className="w-4 h-4 text-[#525252]" />
-                    <span className="text-sm font-medium text-[#050505]">{user.name}</span>
+                  <div className="hidden sm:flex items-center gap-2 px-3 py-1 bg-orange-50 rounded-full" data-testid="user-info">
+                    <User className="w-4 h-4 text-orange-600" />
+                    <span className="text-sm font-medium text-gray-900">{user.name}</span>
                   </div>
                   <Button 
                     onClick={handleLogout} 
                     variant="outline" 
                     size="sm"
-                    className="border-[#E5E5E5] hover:bg-[#06B6D4] hover:text-white transition-colors duration-200 text-xs sm:text-sm"
+                    className="border-orange-300 hover:bg-orange-500 hover:text-white transition-colors duration-200 text-xs sm:text-sm"
                     data-testid="logout-button"
                   >
                     <LogOut className="w-3 sm:w-4 h-3 sm:h-4 sm:mr-2" />
@@ -68,7 +65,7 @@ const Navbar = () => {
                   <Button 
                     variant="ghost" 
                     size="sm"
-                    className="text-[#525252] hover:text-[#06B6D4] hover:bg-transparent text-xs sm:text-sm"
+                    className="text-gray-700 hover:text-orange-600 hover:bg-orange-50 text-xs sm:text-sm"
                   >
                     Login
                   </Button>
@@ -76,9 +73,9 @@ const Navbar = () => {
                 <Link to="/register" data-testid="register-link">
                   <Button 
                     size="sm"
-                    className="bg-[#06B6D4] hover:bg-[#0891B2] text-white text-xs sm:text-sm"
+                    className="bg-orange-500 hover:bg-orange-600 text-white text-xs sm:text-sm"
                   >
-                    <span className="hidden sm:inline">Get Started</span>
+                    <span className="hidden sm:inline">Register</span>
                     <span className="sm:hidden">Sign Up</span>
                   </Button>
                 </Link>

@@ -3,6 +3,7 @@ import { Toaster } from '@/components/ui/sonner';
 import { AuthProvider, useAuth } from '@/context/AuthContext';
 import Navbar from '@/components/Navbar';
 import Home from '@/pages/Home';
+import BookNow from '@/pages/BookNow';
 import Login from '@/pages/Login';
 import Register from '@/pages/Register';
 import AdListing from '@/pages/AdListing';
@@ -37,6 +38,7 @@ function App() {
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/book-now" element={<BookNow />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/ads" element={<AdListing />} />
