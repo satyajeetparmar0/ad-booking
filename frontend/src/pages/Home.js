@@ -91,7 +91,7 @@ const Home = () => {
               </div>
               <Button 
                 type="submit" 
-                className="h-14 px-8 bg-[#002FA7] hover:bg-[#002175] text-white"
+                className="h-14 px-8 bg-[#06B6D4] hover:bg-[#0891B2] text-white"
                 data-testid="home-search-button"
               >
                 Search
@@ -132,7 +132,7 @@ const Home = () => {
             <Button 
               variant="outline" 
               onClick={() => navigate('/ads')}
-              className="border-[#E5E5E5] hover:bg-[#002FA7] hover:text-white hover:border-[#002FA7]"
+              className="border-[#E5E5E5] hover:bg-[#06B6D4] hover:text-white hover:border-[#06B6D4]"
               data-testid="view-all-ads-button"
             >
               View All
@@ -158,7 +158,7 @@ const Home = () => {
 
       {/* CTA Section */}
       <section className="max-w-7xl mx-auto px-6 py-24">
-        <div className="bg-[#002FA7] p-12 text-center">
+        <div className="bg-[#06B6D4] p-12 text-center">
           <h2 className="text-4xl font-heading font-black text-white mb-4 tracking-tight">
             Ready to Amplify Your Brand?
           </h2>
@@ -169,7 +169,7 @@ const Home = () => {
           <Button 
             size="lg"
             onClick={() => navigate('/ads')}
-            className="bg-white text-[#002FA7] hover:bg-[#F5F5F5] font-bold"
+            className="bg-white text-[#06B6D4] hover:bg-[#F5F5F5] font-bold"
             data-testid="cta-browse-button"
           >
             Browse All Ads

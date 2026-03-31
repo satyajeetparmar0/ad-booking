@@ -135,8 +135,8 @@ const AdminDashboard = () => {
 
   const getStatusColor = (status) => {
     switch (status) {
-      case 'confirmed': return 'bg-[#FFC800] text-[#050505]';
-      case 'completed': return 'bg-[#002FA7] text-white';
+      case 'confirmed': return 'bg-[#14B8A6] text-[#050505]';
+      case 'completed': return 'bg-[#06B6D4] text-white';
       case 'cancelled': return 'bg-[#FF2A2A] text-white';
       default: return 'bg-[#E5E5E5] text-[#525252]';
     }
@@ -145,7 +145,7 @@ const AdminDashboard = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-[#002FA7]" />
+        <Loader2 className="w-8 h-8 animate-spin text-[#06B6D4]" />
       </div>
     );
   }
@@ -174,7 +174,7 @@ const AdminDashboard = () => {
                   {ads.length}
                 </p>
               </div>
-              <Package className="w-12 h-12 text-[#002FA7]" />
+              <Package className="w-12 h-12 text-[#06B6D4]" />
             </div>
           </div>
 
@@ -188,7 +188,7 @@ const AdminDashboard = () => {
                   {bookings.length}
                 </p>
               </div>
-              <Calendar className="w-12 h-12 text-[#FFC800]" />
+              <Calendar className="w-12 h-12 text-[#14B8A6]" />
             </div>
           </div>
 
@@ -202,7 +202,7 @@ const AdminDashboard = () => {
                   ₹{bookings.reduce((sum, b) => sum + b.totalPrice, 0).toLocaleString()}
                 </p>
               </div>
-              <Users className="w-12 h-12 text-[#002FA7]" />
+              <Users className="w-12 h-12 text-[#06B6D4]" />
             </div>
           </div>
         </div>
@@ -214,7 +214,7 @@ const AdminDashboard = () => {
               onClick={() => setActiveTab('ads')}
               className={`px-6 py-4 font-medium transition-colors ${
                 activeTab === 'ads'
-                  ? 'text-[#002FA7] border-b-2 border-[#002FA7]'
+                  ? 'text-[#06B6D4] border-b-2 border-[#06B6D4]'
                   : 'text-[#525252] hover:text-[#050505]'
               }`}
               data-testid="ads-tab"
@@ -225,7 +225,7 @@ const AdminDashboard = () => {
               onClick={() => setActiveTab('bookings')}
               className={`px-6 py-4 font-medium transition-colors ${
                 activeTab === 'bookings'
-                  ? 'text-[#002FA7] border-b-2 border-[#002FA7]'
+                  ? 'text-[#06B6D4] border-b-2 border-[#06B6D4]'
                   : 'text-[#525252] hover:text-[#050505]'
               }`}
               data-testid="bookings-tab"
@@ -246,7 +246,7 @@ const AdminDashboard = () => {
                 <DialogTrigger asChild>
                   <Button
                     onClick={handleCreateAd}
-                    className="bg-[#002FA7] hover:bg-[#002175] text-white"
+                    className="bg-[#06B6D4] hover:bg-[#0891B2] text-white"
                     data-testid="create-ad-button"
                   >
                     <Plus className="w-4 h-4 mr-2" />
@@ -351,7 +351,7 @@ const AdminDashboard = () => {
                       />
                     </div>
                     <div className="flex gap-2">
-                      <Button type="submit" className="flex-1 bg-[#002FA7] hover:bg-[#002175]" data-testid="save-ad-button">
+                      <Button type="submit" className="flex-1 bg-[#06B6D4] hover:bg-[#0891B2]" data-testid="save-ad-button">
                         {editingAd ? 'Update Ad' : 'Create Ad'}
                       </Button>
                       <Button type="button" variant="outline" onClick={() => setDialogOpen(false)}>
@@ -380,7 +380,7 @@ const AdminDashboard = () => {
                       <td className="p-4 text-sm font-medium text-[#050505]">{ad.title}</td>
                       <td className="p-4 text-sm text-[#525252]">{ad.category}</td>
                       <td className="p-4 text-sm text-[#525252]">{ad.location}</td>
-                      <td className="p-4 text-sm font-bold text-[#002FA7]">₹{ad.price.toLocaleString()}</td>
+                      <td className="p-4 text-sm font-bold text-[#06B6D4]">₹{ad.price.toLocaleString()}</td>
                       <td className="p-4 text-right">
                         <div className="flex items-center justify-end gap-2">
                           <Button
@@ -438,7 +438,7 @@ const AdminDashboard = () => {
                       <td className="p-4 text-sm text-[#525252]">{booking.userName}</td>
                       <td className="p-4 text-sm text-[#525252]">{booking.adTitle}</td>
                       <td className="p-4 text-sm text-[#525252]">{new Date(booking.startDate).toLocaleDateString()}</td>
-                      <td className="p-4 text-sm font-bold text-[#002FA7]">₹{booking.totalPrice.toLocaleString()}</td>
+                      <td className="p-4 text-sm font-bold text-[#06B6D4]">₹{booking.totalPrice.toLocaleString()}</td>
                       <td className="p-4">
                         <Select 
                           value={booking.status} 

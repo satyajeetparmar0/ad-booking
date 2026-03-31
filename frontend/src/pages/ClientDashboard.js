@@ -32,8 +32,8 @@ const ClientDashboard = () => {
 
   const getStatusColor = (status) => {
     switch (status) {
-      case 'confirmed': return 'bg-[#FFC800] text-[#050505]';
-      case 'completed': return 'bg-[#002FA7] text-white';
+      case 'confirmed': return 'bg-[#14B8A6] text-[#050505]';
+      case 'completed': return 'bg-[#06B6D4] text-white';
       case 'cancelled': return 'bg-[#FF2A2A] text-white';
       default: return 'bg-[#E5E5E5] text-[#525252]';
     }
@@ -42,7 +42,7 @@ const ClientDashboard = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-[#002FA7]" />
+        <Loader2 className="w-8 h-8 animate-spin text-[#06B6D4]" />
       </div>
     );
   }
@@ -71,7 +71,7 @@ const ClientDashboard = () => {
                   {bookings.length}
                 </p>
               </div>
-              <Package className="w-12 h-12 text-[#002FA7]" />
+              <Package className="w-12 h-12 text-[#06B6D4]" />
             </div>
           </div>
 
@@ -85,7 +85,7 @@ const ClientDashboard = () => {
                   {bookings.filter(b => b.status === 'confirmed').length}
                 </p>
               </div>
-              <Calendar className="w-12 h-12 text-[#FFC800]" />
+              <Calendar className="w-12 h-12 text-[#14B8A6]" />
             </div>
           </div>
 
@@ -99,7 +99,7 @@ const ClientDashboard = () => {
                   ₹{bookings.reduce((sum, b) => sum + b.totalPrice, 0).toLocaleString()}
                 </p>
               </div>
-              <div className="text-[#002FA7] text-3xl">₹</div>
+              <div className="text-[#06B6D4] text-3xl">₹</div>
             </div>
           </div>
         </div>
@@ -117,7 +117,7 @@ const ClientDashboard = () => {
               <p className="text-[#525252] mb-6">You haven't made any bookings yet</p>
               <button
                 onClick={() => navigate('/ads')}
-                className="bg-[#002FA7] hover:bg-[#002175] text-white px-6 py-3 font-medium"
+                className="bg-[#06B6D4] hover:bg-[#0891B2] text-white px-6 py-3 font-medium"
                 data-testid="browse-ads-cta"
               >
                 Browse Ads
@@ -157,7 +157,7 @@ const ClientDashboard = () => {
                       <td className="p-4 text-sm text-[#525252]">
                         {new Date(booking.startDate).toLocaleDateString()}
                       </td>
-                      <td className="p-4 text-sm font-bold text-[#002FA7]">
+                      <td className="p-4 text-sm font-bold text-[#06B6D4]">
                         ₹{booking.totalPrice.toLocaleString()}
                       </td>
                       <td className="p-4">

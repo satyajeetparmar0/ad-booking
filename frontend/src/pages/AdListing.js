@@ -159,7 +159,7 @@ const AdListing = () => {
 
                 <button
                   onClick={handleSearch}
-                  className="w-full bg-[#002FA7] hover:bg-[#002175] text-white py-2 px-4 font-medium transition-colors duration-200"
+                  className="w-full bg-[#06B6D4] hover:bg-[#0891B2] text-white py-2 px-4 font-medium transition-colors duration-200"
                   data-testid="apply-filters-button"
                 >
                   Apply Filters

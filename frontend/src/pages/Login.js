@@ -49,7 +49,7 @@ const Login = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="border-[#E5E5E5] focus:ring-[#002FA7]"
+                className="border-[#E5E5E5] focus:ring-[#06B6D4]"
                 data-testid="login-email-input"
               />
             </div>
@@ -64,14 +64,14 @@ const Login = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="border-[#E5E5E5] focus:ring-[#002FA7]"
+                className="border-[#E5E5E5] focus:ring-[#06B6D4]"
                 data-testid="login-password-input"
               />
             </div>
             
             <Button 
               type="submit" 
-              className="w-full bg-[#002FA7] hover:bg-[#002175] text-white"
+              className="w-full bg-[#06B6D4] hover:bg-[#0891B2] text-white"
               disabled={loading}
               data-testid="login-submit-button"
             >
@@ -88,7 +88,7 @@ const Login = () => {
           
           <p className="text-center text-[#525252] text-sm mt-6">
             Don't have an account?{' '}
-            <Link to="/register" className="text-[#002FA7] font-medium hover:underline" data-testid="register-redirect-link">
+            <Link to="/register" className="text-[#06B6D4] font-medium hover:underline" data-testid="register-redirect-link">
               Register here
             </Link>
           </p>

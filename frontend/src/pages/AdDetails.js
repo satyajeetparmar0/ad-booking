@@ -48,32 +48,81 @@ const AdDetails = () => {
 
     setBooking(true);
     try {
-      const response = await api.post('/bookings', {
-        adId: ad.adId,
-        startDate: bookingData.startDate,
-        adContent: bookingData.adContent,
-        paymentId: 'demo_payment_' + Date.now()
+      // Create Razorpay order
+      const orderResponse = await api.post('/payment/create-order', {
+        amount: ad.price,
+        currency: 'INR'
       });
 
-      // Send confirmation email
-      try {
-        await api.post('/email/send-confirmation', {
-          email: user.email,
-          name: user.name,
-          bookingId: response.data.booking.bookingId,
-          adTitle: ad.title,
-          startDate: bookingData.startDate,
-          totalPrice: ad.price
-        });
-      } catch (emailError) {
-        console.error('Email send failed:', emailError);
-      }
+      const { orderId, amount, keyId } = orderResponse.data;
 
-      toast.success('Booking confirmed! Check your email for details.');
-      navigate('/dashboard');
+      // Initialize Razorpay
+      const options = {
+        key: keyId,
+        amount: amount,
+        currency: 'INR',
+        name: 'AdAdda',
+        description: ad.title,
+        order_id: orderId,
+        handler: async function (response) {
+          try {
+            // Verify payment
+            const verifyResponse = await api.post('/payment/verify-payment', {
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature
+            });
+
+            if (verifyResponse.data.success) {
+              // Create booking
+              const bookingResponse = await api.post('/bookings', {
+                adId: ad.adId,
+                startDate: bookingData.startDate,
+                adContent: bookingData.adContent,
+                paymentId: response.razorpay_payment_id
+              });
+
+              // Send confirmation email
+              try {
+                await api.post('/email/send-confirmation', {
+                  email: user.email,
+                  name: user.name,
+                  bookingId: bookingResponse.data.booking.bookingId,
+                  adTitle: ad.title,
+                  startDate: bookingData.startDate,
+                  totalPrice: ad.price
+                });
+              } catch (emailError) {
+                console.error('Email send failed:', emailError);
+              }
+
+              toast.success('Payment successful! Booking confirmed.');
+              navigate('/dashboard');
+            }
+          } catch (error) {
+            toast.error('Payment verification failed');
+            setBooking(false);
+          }
+        },
+        prefill: {
+          name: user.name,
+          email: user.email
+        },
+        theme: {
+          color: '#06B6D4'
+        },
+        modal: {
+          ondismiss: function() {
+            setBooking(false);
+            toast.error('Payment cancelled');
+          }
+        }
+      };
+
+      const razorpay = new window.Razorpay(options);
+      razorpay.open();
     } catch (error) {
-      toast.error(error.response?.data?.error || 'Booking failed');
-    } finally {
+      toast.error(error.response?.data?.error || 'Payment initiation failed');
       setBooking(false);
     }
   };
@@ -81,7 +130,7 @@ const AdDetails = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-[#002FA7]" />
+        <Loader2 className="w-8 h-8 animate-spin text-[#06B6D4]" />
       </div>
     );
   }
@@ -125,7 +174,7 @@ const AdDetails = () => {
                 <MapPin className="w-5 h-5" />
                 <span className="font-medium">{ad.location}</span>
               </div>
-              <div className="text-3xl font-heading font-black text-[#002FA7]">
+              <div className="text-3xl font-heading font-black text-[#06B6D4]">
                 ₹{ad.price.toLocaleString()}
               </div>
             </div>
@@ -147,7 +196,7 @@ const AdDetails = () => {
                 <ul className="space-y-2">
                   {ad.features.map((feature, index) => (
                     <li key={index} className="flex items-center gap-2 text-[#525252]">
-                      <CheckCircle2 className="w-5 h-5 text-[#002FA7]" />
+                      <CheckCircle2 className="w-5 h-5 text-[#06B6D4]" />
                       {feature}
                     </li>
                   ))}
@@ -168,7 +217,7 @@ const AdDetails = () => {
                   <p className="text-[#525252] mb-4">Please login to book this ad</p>
                   <Button 
                     onClick={() => navigate('/login')}
-                    className="bg-[#002FA7] hover:bg-[#002175] text-white"
+                    className="bg-[#06B6D4] hover:bg-[#0891B2] text-white"
                     data-testid="login-to-book-button"
                   >
                     Login to Book
@@ -211,7 +260,7 @@ const AdDetails = () => {
                   <div className="border-t border-[#E5E5E5] pt-6">
                     <div className="flex items-center justify-between mb-6">
                       <span className="text-[#525252] font-medium">Total Amount</span>
-                      <span className="text-3xl font-heading font-black text-[#002FA7]">
+                      <span className="text-3xl font-heading font-black text-[#06B6D4]">
                         ₹{ad.price.toLocaleString()}
                       </span>
                     </div>
@@ -219,7 +268,7 @@ const AdDetails = () => {
                     <Button 
                       type="submit"
                       disabled={booking}
-                      className="w-full bg-[#002FA7] hover:bg-[#002175] text-white h-12"
+                      className="w-full bg-[#06B6D4] hover:bg-[#0891B2] text-white h-12"
                       data-testid="confirm-booking-button"
                     >
                       {booking ? (

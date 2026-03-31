@@ -7,6 +7,7 @@ const adRoutes = require('./routes/ads');
 const bookingRoutes = require('./routes/bookings');
 const uploadRoutes = require('./routes/upload');
 const emailRoutes = require('./routes/email');
+const paymentRoutes = require('./routes/payment');
 const { initStorage } = require('./services/storage');
 
 const app = express();
@@ -46,6 +47,7 @@ app.use('/api/ads', adRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/email', emailRoutes);
+app.use('/api/payment', paymentRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

@@ -28,7 +28,7 @@ module.exports = {
           foreground: '#050505'
         },
         primary: {
-          DEFAULT: '#002FA7',
+          DEFAULT: '#06B6D4',
           foreground: '#FFFFFF'
         },
         secondary: {
@@ -40,8 +40,8 @@ module.exports = {
           foreground: '#525252'
         },
         accent: {
-          DEFAULT: '#FFC800',
-          foreground: '#050505'
+          DEFAULT: '#14B8A6',
+          foreground: '#FFFFFF'
         },
         destructive: {
           DEFAULT: '#FF2A2A',
@@ -49,7 +49,7 @@ module.exports = {
         },
         border: '#E5E5E5',
         input: '#E5E5E5',
-        ring: '#002FA7'
+        ring: '#06B6D4'
       },
       keyframes: {
         'accordion-down': {

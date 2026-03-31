@@ -33,7 +33,7 @@ const AdCard = ({ ad }) => {
         )}
       </div>
       
-      <h3 className="text-xl font-heading font-bold text-[#050505] mb-2 group-hover:text-[#002FA7] transition-colors duration-200">
+      <h3 className="text-xl font-heading font-bold text-[#050505] mb-2 group-hover:text-[#06B6D4] transition-colors duration-200">
         {ad.title}
       </h3>
       
@@ -46,13 +46,13 @@ const AdCard = ({ ad }) => {
           <MapPin className="w-4 h-4" />
           {ad.location}
         </div>
-        <div className="text-2xl font-heading font-black text-[#002FA7]">
+        <div className="text-2xl font-heading font-black text-[#06B6D4]">
           ₹{ad.price.toLocaleString()}
         </div>
       </div>
       
       <Button 
-        className="w-full bg-[#002FA7] hover:bg-[#002175] text-white"
+        className="w-full bg-[#06B6D4] hover:bg-[#0891B2] text-white"
         onClick={(e) => {
           e.stopPropagation();
           navigate(`/ads/${ad.adId}`);

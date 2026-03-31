@@ -50,7 +50,7 @@ const Register = () => {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
-                className="border-[#E5E5E5] focus:ring-[#002FA7]"
+                className="border-[#E5E5E5] focus:ring-[#06B6D4]"
                 data-testid="register-name-input"
               />
             </div>
@@ -65,7 +65,7 @@ const Register = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="border-[#E5E5E5] focus:ring-[#002FA7]"
+                className="border-[#E5E5E5] focus:ring-[#06B6D4]"
                 data-testid="register-email-input"
               />
             </div>
@@ -81,14 +81,14 @@ const Register = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 minLength={6}
-                className="border-[#E5E5E5] focus:ring-[#002FA7]"
+                className="border-[#E5E5E5] focus:ring-[#06B6D4]"
                 data-testid="register-password-input"
               />
             </div>
             
             <Button 
               type="submit" 
-              className="w-full bg-[#002FA7] hover:bg-[#002175] text-white"
+              className="w-full bg-[#06B6D4] hover:bg-[#0891B2] text-white"
               disabled={loading}
               data-testid="register-submit-button"
             >
@@ -105,7 +105,7 @@ const Register = () => {
           
           <p className="text-center text-[#525252] text-sm mt-6">
             Already have an account?{' '}
-            <Link to="/login" className="text-[#002FA7] font-medium hover:underline" data-testid="login-redirect-link">
+            <Link to="/login" className="text-[#06B6D4] font-medium hover:underline" data-testid="login-redirect-link">
               Login here
             </Link>
           </p>
