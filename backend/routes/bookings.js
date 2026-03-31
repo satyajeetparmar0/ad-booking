@@ -90,4 +90,41 @@ router.patch('/:id/status', authMiddleware, adminMiddleware, async (req, res) =>
   }
 });
 
+// Delete booking (admin only)
+router.delete('/:id', authMiddleware, adminMiddleware, async (req, res) => {
+  try {
+    const booking = await Booking.findOneAndDelete({ bookingId: req.params.id });
+    
+    if (!booking) {
+      return res.status(404).json({ error: 'Booking not found' });
+    }
+
+    res.json({ message: 'Booking deleted successfully' });
+  } catch (error) {
+    console.error('Delete booking error:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Get revenue stats (admin only)
+router.get('/stats/revenue', authMiddleware, adminMiddleware, async (req, res) => {
+  try {
+    const bookings = await Booking.find({ paymentStatus: 'completed' });
+    
+    const totalRevenue = bookings.reduce((sum, booking) => sum + booking.totalPrice, 0);
+    const totalBookings = bookings.length;
+    const allBookingsCount = await Booking.countDocuments();
+    
+    res.json({
+      totalRevenue,
+      paidBookings: totalBookings,
+      totalBookings: allBookingsCount,
+      pendingBookings: allBookingsCount - totalBookings
+    });
+  } catch (error) {
+    console.error('Get revenue error:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 module.exports = router;

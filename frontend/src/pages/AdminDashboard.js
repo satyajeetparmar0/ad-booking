@@ -17,6 +17,12 @@ const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState('ads');
   const [ads, setAds] = useState([]);
   const [bookings, setBookings] = useState([]);
+  const [revenueStats, setRevenueStats] = useState({
+    totalRevenue: 0,
+    paidBookings: 0,
+    totalBookings: 0,
+    pendingBookings: 0
+  });
   const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingAd, setEditingAd] = useState(null);
@@ -47,8 +53,12 @@ const AdminDashboard = () => {
         const response = await api.get('/ads');
         setAds(response.data.ads);
       } else {
-        const response = await api.get('/bookings/all');
-        setBookings(response.data.bookings);
+        const [bookingsRes, revenueRes] = await Promise.all([
+          api.get('/bookings/all'),
+          api.get('/bookings/stats/revenue')
+        ]);
+        setBookings(bookingsRes.data.bookings);
+        setRevenueStats(revenueRes.data);
       }
     } catch (error) {
       toast.error('Failed to load data');
@@ -133,6 +143,18 @@ const AdminDashboard = () => {
     }
   };
 
+  const handleDeleteBooking = async (bookingId) => {
+    if (!window.confirm('Are you sure you want to delete this booking?')) return;
+
+    try {
+      await api.delete(`/bookings/${bookingId}`);
+      toast.success('Booking deleted successfully');
+      fetchData();
+    } catch (error) {
+      toast.error('Failed to delete booking');
+    }
+  };
+
   const getStatusColor = (status) => {
     switch (status) {
       case 'confirmed': return 'bg-[#14B8A6] text-[#050505]';
@@ -163,7 +185,7 @@ const AdminDashboard = () => {
 
       <div className="max-w-7xl mx-auto px-6 py-12">
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
           <div className="bg-white border border-[#E5E5E5] p-6">
             <div className="flex items-center justify-between">
               <div>
@@ -185,7 +207,7 @@ const AdminDashboard = () => {
                   Total Bookings
                 </p>
                 <p className="text-4xl font-heading font-black text-[#050505]">
-                  {bookings.length}
+                  {revenueStats.totalBookings}
                 </p>
               </div>
               <Calendar className="w-12 h-12 text-[#14B8A6]" />
@@ -196,13 +218,27 @@ const AdminDashboard = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#525252] mb-2">
-                  Revenue
+                  Paid Bookings
                 </p>
                 <p className="text-4xl font-heading font-black text-[#050505]">
-                  ₹{bookings.reduce((sum, b) => sum + b.totalPrice, 0).toLocaleString()}
+                  {revenueStats.paidBookings}
                 </p>
               </div>
               <Users className="w-12 h-12 text-[#06B6D4]" />
+            </div>
+          </div>
+
+          <div className="bg-white border border-[#E5E5E5] p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#525252] mb-2">
+                  Total Revenue
+                </p>
+                <p className="text-4xl font-heading font-black text-[#050505]">
+                  ₹{revenueStats.totalRevenue.toLocaleString()}
+                </p>
+              </div>
+              <div className="text-[#06B6D4] text-3xl font-black">₹</div>
             </div>
           </div>
         </div>
@@ -425,10 +461,13 @@ const AdminDashboard = () => {
                   <tr>
                     <th className="text-left p-4 text-xs font-bold uppercase tracking-[0.2em] text-[#050505]">Booking ID</th>
                     <th className="text-left p-4 text-xs font-bold uppercase tracking-[0.2em] text-[#050505]">Client</th>
+                    <th className="text-left p-4 text-xs font-bold uppercase tracking-[0.2em] text-[#050505]">Email</th>
                     <th className="text-left p-4 text-xs font-bold uppercase tracking-[0.2em] text-[#050505]">Ad Service</th>
                     <th className="text-left p-4 text-xs font-bold uppercase tracking-[0.2em] text-[#050505]">Date</th>
                     <th className="text-left p-4 text-xs font-bold uppercase tracking-[0.2em] text-[#050505]">Amount</th>
+                    <th className="text-left p-4 text-xs font-bold uppercase tracking-[0.2em] text-[#050505]">Payment</th>
                     <th className="text-left p-4 text-xs font-bold uppercase tracking-[0.2em] text-[#050505]">Status</th>
+                    <th className="text-right p-4 text-xs font-bold uppercase tracking-[0.2em] text-[#050505]">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -436,9 +475,19 @@ const AdminDashboard = () => {
                     <tr key={booking.bookingId} className="border-t border-[#E5E5E5] hover:bg-[#FAFAFA]">
                       <td className="p-4 text-sm font-medium text-[#050505]">{booking.bookingId.slice(0, 8)}...</td>
                       <td className="p-4 text-sm text-[#525252]">{booking.userName}</td>
+                      <td className="p-4 text-sm text-[#525252]">{booking.userEmail}</td>
                       <td className="p-4 text-sm text-[#525252]">{booking.adTitle}</td>
                       <td className="p-4 text-sm text-[#525252]">{new Date(booking.startDate).toLocaleDateString()}</td>
                       <td className="p-4 text-sm font-bold text-[#06B6D4]">₹{booking.totalPrice.toLocaleString()}</td>
+                      <td className="p-4">
+                        <span className={`px-2 py-1 text-xs font-bold uppercase tracking-wider ${
+                          booking.paymentStatus === 'completed' ? 'bg-green-100 text-green-800' :
+                          booking.paymentStatus === 'failed' ? 'bg-red-100 text-red-800' :
+                          'bg-yellow-100 text-yellow-800'
+                        }`}>
+                          {booking.paymentStatus}
+                        </span>
+                      </td>
                       <td className="p-4">
                         <Select 
                           value={booking.status} 
@@ -454,6 +503,17 @@ const AdminDashboard = () => {
                             <SelectItem value="cancelled">Cancelled</SelectItem>
                           </SelectContent>
                         </Select>
+                      </td>
+                      <td className="p-4 text-right">
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => handleDeleteBooking(booking.bookingId)}
+                          className="text-[#FF2A2A] hover:bg-[#FF2A2A] hover:text-white"
+                          data-testid={`delete-booking-${booking.bookingId}`}
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </Button>
                       </td>
                     </tr>
                   ))}
