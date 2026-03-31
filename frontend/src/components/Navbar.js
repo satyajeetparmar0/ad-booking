@@ -20,7 +20,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center hover:opacity-80 transition-opacity" data-testid="logo-link">
             <img 
-              src="https://customer-assets.emergentagent.com/job_ad-booking-hub-1/artifacts/6saqx3xl_AdAdda%20%281%29.png" 
+              src="https://customer-assets.emergentagent.com/job_ad-booking-hub-1/artifacts/7lj2pcur_WhatsApp%20Image%202026-03-31%20at%203.11.13%20PM.jpeg" 
               alt="AdAdda Logo" 
               className="h-10 sm:h-12 w-auto"
             />
