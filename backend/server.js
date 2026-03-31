@@ -5,6 +5,8 @@ const mongoose = require('mongoose');
 const authRoutes = require('./routes/auth');
 const adRoutes = require('./routes/ads');
 const bookingRoutes = require('./routes/bookings');
+const bookingsNewRoutes = require('./routes/bookingsNew');
+const newspaperRoutes = require('./routes/newspapers');
 const uploadRoutes = require('./routes/upload');
 const emailRoutes = require('./routes/email');
 const paymentRoutes = require('./routes/payment');
@@ -45,6 +47,8 @@ app.get('/api', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/ads', adRoutes);
 app.use('/api/bookings', bookingRoutes);
+app.use('/api/bookings-new', bookingsNewRoutes);
+app.use('/api/newspapers', newspaperRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/email', emailRoutes);
 app.use('/api/payment', paymentRoutes);
