@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from '@/components/ui/sonner';
 import { AuthProvider, useAuth } from '@/context/AuthContext';
 import Navbar from '@/components/Navbar';
+import FloatingContact from '@/components/FloatingContact';
 import Home from '@/pages/Home';
 import BookNow from '@/pages/BookNow';
 import Login from '@/pages/Login';
@@ -36,6 +37,7 @@ function App() {
       <div className="App">
         <BrowserRouter>
           <Navbar />
+          <FloatingContact />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/book-now" element={<BookNow />} />

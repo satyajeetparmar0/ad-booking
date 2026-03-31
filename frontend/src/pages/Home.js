@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Newspaper, MapPin, Calendar, IndianRupee, CheckCircle, Users, Building } from 'lucide-react';
+import HeroCarousel from '@/components/HeroCarousel';
 
 const NewHome = () => {
   const navigate = useNavigate();
@@ -30,37 +31,8 @@ const NewHome = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-orange-500 via-orange-600 to-yellow-500 text-white overflow-hidden">
-        <div className="absolute inset-0 bg-black/10"></div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
-          <div className="text-center">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black mb-6 tracking-tight">
-              Book Newspaper Ads Online
-            </h1>
-            <p className="text-xl sm:text-2xl mb-8 text-orange-50 max-w-3xl mx-auto">
-              Publish your ads in 1000+ newspapers across India. Easy, Fast & Affordable.
-            </p>
-            <Button
-              size="lg"
-              onClick={() => navigate('/book-now')}
-              className="bg-white text-orange-600 hover:bg-orange-50 font-bold text-lg px-12 py-6 h-auto shadow-2xl"
-              data-testid="book-ad-button"
-            >
-              <Newspaper className="mr-3 w-6 h-6" />
-              Book Your Ad Now
-            </Button>
-            <p className="mt-4 text-orange-100 text-sm">No registration required to check prices</p>
-          </div>
-        </div>
-
-        {/* Wave SVG */}
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" className="w-full">
-            <path fill="#FAFAFA" fillOpacity="1" d="M0,64L48,69.3C96,75,192,85,288,80C384,75,480,53,576,48C672,43,768,53,864,58.7C960,64,1056,64,1152,58.7C1248,53,1344,43,1392,37.3L1440,32L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z"></path>
-          </svg>
-        </div>
-      </section>
+      {/* Hero Carousel */}
+      <HeroCarousel />
 
       {/* Features */}
       <section className="py-12 sm:py-16 bg-white">
