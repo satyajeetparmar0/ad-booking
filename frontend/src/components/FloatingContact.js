@@ -43,7 +43,7 @@ const FloatingContact = () => {
                 </div>
               </a>
               <a
-                href="tel:+919973634393"
+                href="tel:1233210000"
                 className="flex items-center gap-3 p-2 hover:bg-red-50 rounded-lg transition-colors group mt-1"
                 data-testid="phone-number-link-2"
               >
@@ -51,8 +51,8 @@ const FloatingContact = () => {
                   <Phone className="w-4 h-4 text-red-600" />
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-gray-900 group-hover:text-red-600">+91 9973634393</p>
-                  <p className="text-xs text-gray-500">Alternate</p>
+                  <p className="text-sm font-semibold text-gray-900 group-hover:text-red-600">123-321-0000</p>
+                  <p className="text-xs text-gray-500">Landline</p>
                 </div>
               </a>
             </div>
