@@ -2,13 +2,16 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
+import api from '@/utils/api';
 import { toast } from 'sonner';
-import { FileText, Eye, Upload, AlertCircle } from 'lucide-react';
+import { FileText, Eye, Upload, AlertCircle, X, Loader2 } from 'lucide-react';
 
 const ComposeStep = ({ data, updateData, nextStep, prevStep }) => {
   const [content, setContent] = useState(data.adContent || '');
   const [showPreview, setShowPreview] = useState(false);
   const [wordCount, setWordCount] = useState(0);
+  const [uploading, setUploading] = useState(false);
+  const [uploadedImage, setUploadedImage] = useState(data.adImage || '');
 
   useEffect(() => {
     const words = content.trim().split(/\s+/).filter(w => w.length > 0);
@@ -18,6 +21,49 @@ const ComposeStep = ({ data, updateData, nextStep, prevStep }) => {
   const handleContentChange = (e) => {
     setContent(e.target.value);
     updateData({ adContent: e.target.value });
+  };
+
+  const handleImageUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Validate file
+    if (!file.type.startsWith('image/')) {
+      toast.error('Please upload an image file');
+      return;
+    }
+
+    if (file.size > 2 * 1024 * 1024) {
+      toast.error('Image size must be less than 2MB');
+      return;
+    }
+
+    setUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const response = await api.post('/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+
+      const imageUrl = response.data.url;
+      setUploadedImage(imageUrl);
+      updateData({ adImage: imageUrl });
+      toast.success('Image uploaded successfully');
+    } catch (error) {
+      toast.error('Failed to upload image');
+      console.error('Upload error:', error);
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const removeImage = () => {
+    setUploadedImage('');
+    updateData({ adImage: '' });
   };
 
   const handleNext = () => {
@@ -68,17 +114,43 @@ const ComposeStep = ({ data, updateData, nextStep, prevStep }) => {
               <Upload className="w-5 h-5" />
               Upload Logo/Image (Optional)
             </Label>
-            <div className="border-2 border-dashed border-gray-300 p-8 text-center hover:border-orange-400 transition-colors">
-              <Upload className="w-12 h-12 text-gray-400 mx-auto mb-3" />
-              <p className="text-sm text-gray-600 mb-2">Click to upload or drag and drop</p>
-              <p className="text-xs text-gray-500">PNG, JPG up to 2MB</p>
-              <input
-                type="file"
-                accept="image/*"
-                className="hidden"
-                id="ad-image"
-              />
-            </div>
+            
+            {!uploadedImage ? (
+              <label className="border-2 border-dashed border-gray-300 p-8 text-center hover:border-orange-400 transition-colors cursor-pointer block">
+                {uploading ? (
+                  <div className="flex flex-col items-center">
+                    <Loader2 className="w-12 h-12 text-orange-500 animate-spin mb-3" />
+                    <p className="text-sm text-gray-600">Uploading...</p>
+                  </div>
+                ) : (
+                  <>
+                    <Upload className="w-12 h-12 text-gray-400 mx-auto mb-3" />
+                    <p className="text-sm text-gray-600 mb-2">Click to upload or drag and drop</p>
+                    <p className="text-xs text-gray-500">PNG, JPG up to 2MB</p>
+                  </>
+                )}
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={handleImageUpload}
+                  disabled={uploading}
+                  data-testid="image-upload-input"
+                />
+              </label>
+            ) : (
+              <div className="relative border-2 border-gray-300 p-4">
+                <button
+                  onClick={removeImage}
+                  className="absolute top-2 right-2 bg-red-500 text-white p-2 rounded-full hover:bg-red-600"
+                  type="button"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+                <img src={uploadedImage} alt="Uploaded" className="max-h-48 mx-auto" />
+                <p className="text-sm text-center text-green-600 mt-2">✓ Image uploaded successfully</p>
+              </div>
+            )}
           </div>
         )}
 

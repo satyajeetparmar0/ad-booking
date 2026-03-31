@@ -16,17 +16,15 @@ const Navbar = () => {
     <nav className="bg-white border-b-2 border-orange-500 sticky top-0 z-50 shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
         <div className="flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2" data-testid="logo-link">
-            <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-lg flex items-center justify-center">
-              <span className="text-white font-black text-xl">A</span>
-            </div>
-            <h1 className="text-xl sm:text-2xl font-heading font-black text-gray-900 tracking-tight">
-              AdAdda
-            </h1>
+          <Link to="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity" data-testid="logo-link">
+            <img 
+              src="https://customer-assets.emergentagent.com/job_ad-booking-hub-1/artifacts/glj6bes2_AdAdda%20%281%29.png" 
+              alt="AdAdda Logo" 
+              className="h-10 sm:h-12 w-auto"
+            />
           </Link>
 
-          <div className="flex items-center gap-3 sm:gap-6">
-            {user ? (
+          <div className="flex items-center gap-3 sm:gap-6">{user ? (
               <>
                 <Link 
                   to={user.role === 'admin' ? '/admin' : '/dashboard'} 
