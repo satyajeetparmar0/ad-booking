@@ -14,16 +14,16 @@ const Navbar = () => {
 
   return (
     <nav className="bg-white border-b border-[#E5E5E5] sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-6 py-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center" data-testid="logo-link">
-            <h1 className="text-2xl font-heading font-black text-[#050505] tracking-tight">
+            <h1 className="text-xl sm:text-2xl font-heading font-black text-[#050505] tracking-tight">
               AdAdda
             </h1>
           </Link>
 
-          <div className="flex items-center gap-6">
-            <Link to="/ads" data-testid="browse-ads-link">
+          <div className="flex items-center gap-3 sm:gap-6">
+            <Link to="/ads" data-testid="browse-ads-link" className="hidden sm:block">
               <span className="text-sm font-medium text-[#525252] hover:text-[#06B6D4] transition-colors duration-200">
                 Browse Ads
               </span>
@@ -34,6 +34,7 @@ const Navbar = () => {
                 <Link 
                   to={user.role === 'admin' ? '/admin' : '/dashboard'} 
                   data-testid="dashboard-link"
+                  className="hidden sm:block"
                 >
                   <Button 
                     variant="ghost" 
@@ -44,8 +45,8 @@ const Navbar = () => {
                     Dashboard
                   </Button>
                 </Link>
-                <div className="flex items-center gap-3">
-                  <div className="flex items-center gap-2" data-testid="user-info">
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <div className="hidden sm:flex items-center gap-2" data-testid="user-info">
                     <User className="w-4 h-4 text-[#525252]" />
                     <span className="text-sm font-medium text-[#050505]">{user.name}</span>
                   </div>
@@ -53,21 +54,21 @@ const Navbar = () => {
                     onClick={handleLogout} 
                     variant="outline" 
                     size="sm"
-                    className="border-[#E5E5E5] hover:bg-[#06B6D4] hover:text-white transition-colors duration-200"
+                    className="border-[#E5E5E5] hover:bg-[#06B6D4] hover:text-white transition-colors duration-200 text-xs sm:text-sm"
                     data-testid="logout-button"
                   >
-                    <LogOut className="w-4 h-4 mr-2" />
-                    Logout
+                    <LogOut className="w-3 sm:w-4 h-3 sm:h-4 sm:mr-2" />
+                    <span className="hidden sm:inline">Logout</span>
                   </Button>
                 </div>
               </>
             ) : (
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 sm:gap-3">
                 <Link to="/login" data-testid="login-link">
                   <Button 
                     variant="ghost" 
                     size="sm"
-                    className="text-[#525252] hover:text-[#06B6D4] hover:bg-transparent"
+                    className="text-[#525252] hover:text-[#06B6D4] hover:bg-transparent text-xs sm:text-sm"
                   >
                     Login
                   </Button>
@@ -75,9 +76,10 @@ const Navbar = () => {
                 <Link to="/register" data-testid="register-link">
                   <Button 
                     size="sm"
-                    className="bg-[#06B6D4] hover:bg-[#0891B2] text-white"
+                    className="bg-[#06B6D4] hover:bg-[#0891B2] text-white text-xs sm:text-sm"
                   >
-                    Get Started
+                    <span className="hidden sm:inline">Get Started</span>
+                    <span className="sm:hidden">Sign Up</span>
                   </Button>
                 </Link>
               </div>

@@ -59,30 +59,30 @@ const AdListing = () => {
 
   return (
     <div className="min-h-screen">
-      <div className="bg-white border-b border-[#E5E5E5] py-12">
-        <div className="max-w-7xl mx-auto px-6">
-          <h1 className="text-4xl lg:text-5xl font-heading font-black text-[#050505] mb-4 tracking-tight">
+      <div className="bg-white border-b border-[#E5E5E5] py-8 sm:py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-black text-[#050505] mb-2 sm:mb-4 tracking-tight">
             Browse Advertising Services
           </h1>
-          <p className="text-[#525252]">
+          <p className="text-sm sm:text-base text-[#525252]">
             {ads.length} ads available
           </p>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 sm:gap-8">
           {/* Filters Sidebar */}
           <div className="lg:col-span-1">
-            <div className="bg-white border border-[#E5E5E5] p-6 sticky top-24">
-              <div className="flex items-center gap-2 mb-6">
-                <SlidersHorizontal className="w-5 h-5 text-[#050505]" />
-                <h3 className="text-lg font-heading font-bold text-[#050505]">
+            <div className="bg-white border border-[#E5E5E5] p-4 sm:p-6 lg:sticky lg:top-24">
+              <div className="flex items-center gap-2 mb-4 sm:mb-6">
+                <SlidersHorizontal className="w-4 sm:w-5 h-4 sm:h-5 text-[#050505]" />
+                <h3 className="text-base sm:text-lg font-heading font-bold text-[#050505]">
                   Filters
                 </h3>
               </div>
 
-              <div className="space-y-6">
+              <div className="space-y-4 sm:space-y-6">
                 <div>
                   <label className="text-xs font-bold uppercase tracking-[0.2em] text-[#050505] mb-2 block">
                     Search
@@ -95,7 +95,7 @@ const AdListing = () => {
                       value={filters.search}
                       onChange={(e) => handleFilterChange('search', e.target.value)}
                       onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-                      className="pl-10 border-[#E5E5E5]"
+                      className="pl-10 border-[#E5E5E5] text-sm"
                       data-testid="ad-search-input"
                     />
                   </div>
@@ -106,7 +106,7 @@ const AdListing = () => {
                     Category
                   </label>
                   <Select value={filters.category || "all"} onValueChange={(value) => handleFilterChange('category', value === "all" ? '' : value)}>
-                    <SelectTrigger className="border-[#E5E5E5]" data-testid="category-filter">
+                    <SelectTrigger className="border-[#E5E5E5] text-sm" data-testid="category-filter">
                       <SelectValue placeholder="All Categories" />
                     </SelectTrigger>
                     <SelectContent>
@@ -128,7 +128,7 @@ const AdListing = () => {
                     placeholder="Enter location"
                     value={filters.location}
                     onChange={(e) => handleFilterChange('location', e.target.value)}
-                    className="border-[#E5E5E5]"
+                    className="border-[#E5E5E5] text-sm"
                     data-testid="location-filter-input"
                   />
                 </div>
@@ -143,7 +143,7 @@ const AdListing = () => {
                       placeholder="Min"
                       value={filters.minPrice}
                       onChange={(e) => handleFilterChange('minPrice', e.target.value)}
-                      className="border-[#E5E5E5]"
+                      className="border-[#E5E5E5] text-sm"
                       data-testid="min-price-filter"
                     />
                     <Input
@@ -151,7 +151,7 @@ const AdListing = () => {
                       placeholder="Max"
                       value={filters.maxPrice}
                       onChange={(e) => handleFilterChange('maxPrice', e.target.value)}
-                      className="border-[#E5E5E5]"
+                      className="border-[#E5E5E5] text-sm"
                       data-testid="max-price-filter"
                     />
                   </div>
@@ -159,7 +159,7 @@ const AdListing = () => {
 
                 <button
                   onClick={handleSearch}
-                  className="w-full bg-[#06B6D4] hover:bg-[#0891B2] text-white py-2 px-4 font-medium transition-colors duration-200"
+                  className="w-full bg-[#06B6D4] hover:bg-[#0891B2] text-white py-2 px-4 font-medium transition-colors duration-200 text-sm"
                   data-testid="apply-filters-button"
                 >
                   Apply Filters
@@ -171,17 +171,17 @@ const AdListing = () => {
           {/* Ads Grid */}
           <div className="lg:col-span-3">
             {loading ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
                 {[1, 2, 3, 4, 5, 6].map((i) => (
                   <div key={i} className="bg-white border border-[#E5E5E5] p-6 h-96 animate-pulse"></div>
                 ))}
               </div>
             ) : ads.length === 0 ? (
-              <div className="bg-white border border-[#E5E5E5] p-12 text-center">
-                <p className="text-[#525252] text-lg">No ads found matching your criteria</p>
+              <div className="bg-white border border-[#E5E5E5] p-8 sm:p-12 text-center">
+                <p className="text-[#525252] text-base sm:text-lg">No ads found matching your criteria</p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
                 {ads.map((ad) => (
                   <AdCard key={ad.adId} ad={ad} />
                 ))}
