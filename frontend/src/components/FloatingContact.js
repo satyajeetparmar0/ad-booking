@@ -30,7 +30,7 @@ const FloatingContact = () => {
                 </button>
               </div>
               <a
-                href="tel:+918800330000"
+                href="tel:+919973634393"
                 className="flex items-center gap-3 p-2 hover:bg-red-50 rounded-lg transition-colors group"
                 data-testid="phone-number-link"
               >
@@ -38,12 +38,12 @@ const FloatingContact = () => {
                   <Phone className="w-4 h-4 text-red-600" />
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-gray-900 group-hover:text-red-600">+91 8800 330 000</p>
+                  <p className="text-sm font-semibold text-gray-900 group-hover:text-red-600">+91 9973634393</p>
                   <p className="text-xs text-gray-500">Mon-Sat, 9am-7pm</p>
                 </div>
               </a>
               <a
-                href="tel:+911140330000"
+                href="tel:+919973634393"
                 className="flex items-center gap-3 p-2 hover:bg-red-50 rounded-lg transition-colors group mt-1"
                 data-testid="phone-number-link-2"
               >
@@ -51,8 +51,8 @@ const FloatingContact = () => {
                   <Phone className="w-4 h-4 text-red-600" />
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-gray-900 group-hover:text-red-600">011-4033 0000</p>
-                  <p className="text-xs text-gray-500">Landline</p>
+                  <p className="text-sm font-semibold text-gray-900 group-hover:text-red-600">+91 9973634393</p>
+                  <p className="text-xs text-gray-500">Alternate</p>
                 </div>
               </a>
             </div>
@@ -94,7 +94,7 @@ const FloatingContact = () => {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-gray-900 group-hover:text-green-600">+91 8800 330 000</p>
+                  <p className="text-sm font-semibold text-gray-900 group-hover:text-green-600">+91 9973634393</p>
                   <p className="text-xs text-gray-500">Tap to chat on WhatsApp</p>
                 </div>
               </a>
@@ -151,8 +151,8 @@ const FloatingContact = () => {
               </div>
               <div className="mt-3 pt-3 border-t border-gray-100">
                 <p className="text-xs text-gray-500 text-center">Or call us directly:</p>
-                <a href="tel:+918800330000" className="block text-center text-sm font-bold text-red-600 hover:text-red-700 mt-1" data-testid="callback-direct-call">
-                  +91 8800 330 000
+                <a href="tel:+919973634393" className="block text-center text-sm font-bold text-red-600 hover:text-red-700 mt-1" data-testid="callback-direct-call">
+                  +91 9973634393
                 </a>
               </div>
             </div>
@@ -162,9 +162,9 @@ const FloatingContact = () => {
 
       {/* Bottom Contact Bar */}
       <div className="fixed bottom-0 left-0 right-0 z-50 bg-blue-600 text-white py-2 px-4 text-center shadow-lg sm:hidden" data-testid="bottom-contact-bar">
-        <a href="tel:+918800330000" className="flex items-center justify-center gap-2 text-sm font-semibold">
+        <a href="tel:+919973634393" className="flex items-center justify-center gap-2 text-sm font-semibold">
           <Phone className="w-4 h-4" />
-          <span>Fill Query or Call 8800 330 000</span>
+          <span>Fill Query or Call 9973634393</span>
         </a>
       </div>
     </>
