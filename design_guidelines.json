@@ -1,0 +1,94 @@
+{
+  "project_name": "AdAdda",
+  "theme": "light",
+  "archetype": "4 (Swiss & High-Contrast)",
+  "design_philosophy": {
+    "core_principles": [
+      "Objective, rigid, and functional",
+      "Color is function only. UI is mostly monochrome; color exists to guide action.",
+      "Tension through asymmetry and stark contrasts.",
+      "Bold typography hierarchy over soft edges or decorative gradients."
+    ]
+  },
+  "colors": {
+    "background": "#FAFAFA",
+    "surface": "#FFFFFF",
+    "primary": "#002FA7",
+    "primary_hover": "#002175",
+    "text_primary": "#050505",
+    "text_secondary": "#525252",
+    "border": "#E5E5E5",
+    "accent_red": "#FF2A2A",
+    "accent_yellow": "#FFC800"
+  },
+  "typography": {
+    "font_families": {
+      "headings": "Clash Display, sans-serif",
+      "body": "Satoshi, sans-serif"
+    },
+    "hierarchy": {
+      "h1": "text-5xl lg:text-6xl tracking-tighter font-black text-[#050505]",
+      "h2": "text-3xl lg:text-4xl tracking-tight font-bold text-[#050505]",
+      "h3": "text-2xl font-bold tracking-tight text-[#050505]",
+      "body": "text-base font-medium leading-relaxed text-[#525252]",
+      "labels": "text-xs font-bold uppercase tracking-[0.2em] text-[#050505]"
+    }
+  },
+  "layout_and_spacing": {
+    "spacing_scale": "p-1, p-2, p-4, p-6, p-8, p-12, p-16, p-24, p-32",
+    "homepage_grid": "Mode A: 'Tetris' Bento Grid. grid-cols-1 md:grid-cols-12 gap-8. Asymmetrical spans for categories.",
+    "dashboard_grid": "Mode B: 'Control Room' Grid. grid-cols-1 md:grid-cols-4 gap-6. Dense, data-heavy, full height.",
+    "general_rules": [
+      "Use 1px solid borders to ground components instead of soft shadows.",
+      "Ensure inner padding (p-6 or p-8) on all bordered containers to prevent text collision.",
+      "Grid items must be direct children of the grid container."
+    ]
+  },
+  "components": {
+    "buttons": "Square or very slightly rounded (max rounded-md). Solid high-contrast backgrounds (#002FA7) with white text. Hover states must shift to a darker hue (#002175). Include data-testid.",
+    "cards": "Cardless or sharp rectangular edges. 1px border (#E5E5E5). No soft drop-shadows. On hover, translate-y-1 with a sharp shadow.",
+    "inputs": "Shadcn defaults customized to have sharp corners, 1px #E5E5E5 border, focus ring in #002FA7.",
+    "headers": "Solid white background with 1px bottom border. Not glassmorphic for this archetype to maintain strict Swiss functionalism."
+  },
+  "interactive_elements": {
+    "data_testid_requirement": "All buttons, links, inputs, and tabs MUST have a descriptive kebab-case data-testid (e.g., data-testid='book-now-button', data-testid='ad-category-filter')."
+  },
+  "motion": {
+    "scroll": "Lenis smooth scrolling is mandatory for momentum.",
+    "interactions": "Fast, precise micro-interactions (0.2s ease). No bouncy or slow playful animations. Utilitarian feel."
+  },
+  "media": {
+    "hero_abstract": {
+      "url": "https://static.prod-images.emergentagent.com/jobs/04cdd440-5812-4210-a002-ebc215133211/images/8bd94e5a947c293a9c4c2d02d928d7b3aee696039aa48bbf16975dee9ed08e22.png",
+      "description": "Abstract 3D architectural space in pristine white with Klein Blue geometric accents.",
+      "placement": "Homepage hero background or featured section."
+    },
+    "categories": {
+      "newspaper": {
+         "url": "https://images.unsplash.com/photo-1736248991839-67d11f7a5643?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjY2NjV8MHwxfHNlYXJjaHwzfHxuZXdzcGFwZXIlMjBwcmludGluZyUyMHR5cG9ncmFwaHl8ZW58MHx8fHwxNzc0OTQwNzg2fDA&ixlib=rb-4.1.0&q=85",
+         "description": "Close up typography of a printed newspaper."
+      },
+      "digital": {
+         "url": "https://images.unsplash.com/photo-1763671727638-5bc55bb9c980?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjY2NjV8MHwxfHNlYXJjaHwzfHxkaWdpdGFsJTIwYmlsbGJvYXJkJTIwY2l0eSUyMHN0cmVldHxlbnwwfHx8fDE3NzQ5NDA3ODd8MA&ixlib=rb-4.1.0&q=85",
+         "description": "Bright glowing digital billboard ad on a city street."
+      },
+      "radio": {
+         "url": "https://images.pexels.com/photos/5061702/pexels-photo-5061702.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+         "description": "Illuminated radio broadcasting microphone and console."
+      },
+      "tv": {
+         "url": "https://images.pexels.com/photos/7865064/pexels-photo-7865064.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+         "description": "Professional TV broadcasting studio with green screen and cameras."
+      }
+    },
+    "guidelines": "Do not overlay heavy black gradients. If overlay is needed, use bg-black/30 or a gradient to transparent. High contrast typography over images."
+  },
+  "instructions_to_main_agent": [
+    "Install 'lucide-react' for high-contrast crisp icons.",
+    "Install '@studio-freight/react-lenis' for smooth scrolling.",
+    "Do not use generic Inter font for headings. Apply Clash Display for headers and Satoshi for body via standard webfonts.",
+    "Build the dashboard with pure dense data grids (Control Room pattern) utilizing Shadcn Tables, without excess shadows.",
+    "Ensure all forms and buttons have a data-testid attribute.",
+    "Ensure the hero image opacity overlay is maximum 40% if text contrast is needed."
+  ]
+}
