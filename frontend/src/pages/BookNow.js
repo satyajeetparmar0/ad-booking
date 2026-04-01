@@ -23,7 +23,7 @@ const steps = [
 ];
 
 const BookNow = () => {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [bookingData, setBookingData] = useState({
@@ -41,11 +41,11 @@ const BookNow = () => {
   });
 
   useEffect(() => {
-    if (!user) {
+    if (!loading && !user) {
       toast.error('Please login to book an ad');
       navigate('/login');
     }
-  }, [user, navigate]);
+  }, [user, loading, navigate]);
 
   const updateBookingData = (data) => {
     setBookingData(prev => ({ ...prev, ...data }));
@@ -64,6 +64,23 @@ const BookNow = () => {
   };
 
   const CurrentStepComponent = steps[currentStep - 1].component;
+
+  // Show loading while checking auth
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-50 via-white to-blue-50">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Don't render if not logged in (will redirect)
+  if (!user) {
+    return null;
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-blue-50">
