@@ -4,9 +4,9 @@
 Build "AdAdda", a full-stack online advertisement booking platform similar to EasyBookAd/BookMyAd with multi-step ad booking flow, image upload, payment integration, admin/client dashboards, and email confirmations.
 
 ## Tech Stack
-- **Frontend:** React 18, React Router, Tailwind CSS, Lucide React, shadcn/ui
-- **Backend:** Node.js, Express, MongoDB (Mongoose), JWT Auth
-- **Payments:** Razorpay (test mode - keys may be restricted)
+- **Frontend:** React 18, React Router, Tailwind CSS, shadcn/ui, Lucide React, @stripe/stripe-js
+- **Backend:** Node.js, Express, MongoDB (Mongoose), JWT Auth, Stripe
+- **Payments:** Stripe Checkout (replaced Razorpay)
 - **Email:** Resend
 - **Image Upload:** Emergent Object Storage
 
@@ -14,13 +14,13 @@ Build "AdAdda", a full-stack online advertisement booking platform similar to Ea
 ```
 /app/
 ├── backend/ (Node.js + Express on port 8001)
-│   ├── models/ (User, Booking, BookingNew, Newspaper)
-│   ├── routes/ (auth, bookings, bookingsNew, newspapers, payment, email, upload)
+│   ├── models/ (User, Booking, BookingNew, Newspaper, PaymentTransaction)
+│   ├── routes/ (auth, bookingsNew, newspapers, payment, email, upload)
 │   ├── middleware/ (auth)
 │   ├── server.js, seed.js, seedNewspapers.js
 ├── frontend/ (React on port 3000)
-│   ├── src/components/ (Navbar, HeroCarousel, FloatingContact, AdCard, CategoryCard, booking-steps/, ui/)
-│   ├── src/pages/ (Home, BookNow, Login, Register, ClientDashboard, AdminDashboard)
+│   ├── src/components/ (Navbar, HeroCarousel, FloatingContact, booking-steps/, ui/)
+│   ├── src/pages/ (Home, BookNow, PaymentSuccess, Login, Register, ClientDashboard, AdminDashboard)
 │   ├── src/context/ (AuthContext)
 │   ├── src/utils/ (api.js)
 ```
@@ -36,29 +36,33 @@ Build "AdAdda", a full-stack online advertisement booking platform similar to Ea
 - Image upload via Emergent Object Storage
 - Price calculation in booking flow
 
-### Homepage & UI (DONE - Feb 2026)
-- **Hero Image Carousel** - Auto-scrolling (5s) with 3 slides, prev/next arrows (blue circles), dot indicators, smooth opacity transitions, "BOOK NOW" CTA overlay
-- **Floating Contact Buttons** - Left side: Phone (red) + WhatsApp (green) with popups showing contact details
-- **"Call Back" Tab** - Right side vertical red tab with callback request form (name + phone)
-- **Navbar "Contact Us"** - Dropdown with phone + WhatsApp links
-- **Bottom Contact Bar** - Mobile-only fixed bar with phone CTA
-- Blue/orange gradient theme with AdAdda logo
+### Stripe Payment Integration (DONE - Mar 2026)
+- Replaced Razorpay with **Stripe Checkout**
+- Backend creates Stripe checkout session with booking metadata
+- Frontend redirects to Stripe's hosted payment page
+- PaymentSuccess page polls for payment status
+- On successful payment: creates booking, updates PaymentTransaction, sends email confirmation
+- PaymentTransaction model tracks full payment lifecycle
+- Webhook endpoint at /api/payment/webhook
+
+### Homepage & UI (DONE - Mar 2026)
+- Hero Image Carousel with 3 auto-scrolling slides
+- Floating Contact Buttons (Phone + WhatsApp + CallBack tab)
+- Navbar Contact Us dropdown
+- AD ADDA logo with blue/orange theme
 
 ## Known Issues
-- **Razorpay Payment:** `BAD_REQUEST_ERROR: Authentication failed` - Test keys may be restricted/expired. Blocks final booking step.
+- None critical
 
 ## Prioritized Backlog
 
-### P0 (Critical)
-- Resolve Razorpay payment flow (get new keys or implement mock payment)
-
 ### P1 (Important)
-- E2E test of full multi-step booking flow (Category → Payment)
+- E2E manual test of Stripe payment with test card (4242 4242 4242 4242)
 - Verify image upload displays in Admin Dashboard
 
 ### P2 (Nice to have)
-- Clean up legacy `Booking.js` model & `bookings.js` routes
-- Mobile responsiveness polish across all pages
+- Clean up legacy Booking.js model & bookings.js routes
+- Mobile responsiveness polish
 - Admin approval workflow improvements
 
 ### P3 (Future)
