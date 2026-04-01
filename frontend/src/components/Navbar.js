@@ -16,13 +16,13 @@ const Navbar = () => {
 
   return (
     <nav className="bg-white border-b-2 border-blue-600 sticky top-0 z-50 shadow-md">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-1 sm:py-1.5">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center hover:opacity-80 transition-opacity" data-testid="logo-link">
             <img 
-              src="https://customer-assets.emergentagent.com/job_ad-booking-hub-1/artifacts/6saqx3xl_AdAdda%20%281%29.png" 
-              alt="AdAdda Logo" 
-              className="h-10 sm:h-12 w-auto"
+              src="https://customer-assets.emergentagent.com/job_ad-booking-hub-1/artifacts/oj9r21yk_Gemini_Generated_Image_1oti0s1oti0s1oti.png" 
+              alt="AD ADDA Logo" 
+              className="h-16 sm:h-20 w-auto"
             />
           </Link>
 

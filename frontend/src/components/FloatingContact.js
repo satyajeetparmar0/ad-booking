@@ -82,7 +82,7 @@ const FloatingContact = () => {
                 </button>
               </div>
               <a
-                href="https://wa.me/918800330000?text=Hi%2C%20I%20want%20to%20book%20a%20newspaper%20ad"
+                href="https://wa.me/919973634393?text=Hi%2C%20I%20want%20to%20book%20a%20newspaper%20ad"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 p-2 hover:bg-green-50 rounded-lg transition-colors group"
