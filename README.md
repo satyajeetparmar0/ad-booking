@@ -4,6 +4,14 @@ AdAdda is a full-stack online advertisement booking platform similar to EasyBook
 
 ![AdAdda](https://customer-assets.emergentagent.com/job_ad-booking-hub-1/artifacts/6saqx3xl_AdAdda%20%281%29.png)
 
+## 🎥 Documentary Video
+
+To learn more about TechShop and see a walkthrough of its features, watch documentary video:
+
+## Watch the TechShop App Documentary Video
+
+[![Watch Demo](https://img.youtube.com/vi/9kZc-0BXPwo/0.jpg)](https://youtu.be/9kZc-0BXPwo)
+
 ## Features
 
 - **Multi-Step Ad Booking Flow** — Category → Location/Newspaper → Ad Type → Compose → Publish Date → Review & Payment
