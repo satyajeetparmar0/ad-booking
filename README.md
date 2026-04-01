@@ -10,7 +10,7 @@ AdAdda is a full-stack online advertisement booking platform similar to EasyBook
 - **Hero Image Carousel** — Auto-scrolling banner with advertising slides, navigation arrows, and dot indicators
 - **Floating Contact Buttons** — Phone & WhatsApp quick-access buttons with popups, plus a "Call Back" request tab
 - **Image Upload** — Upload ad images during the compose step via Emergent Object Storage
-- **Razorpay Payment Gateway** — Secure online payment integration (test mode)
+- **Stripe Payment Gateway** — Secure online payment integration (test mode)
 - **Admin Dashboard** — Manage all bookings, track revenue, approve/reject ads
 - **Client Dashboard** — View personal bookings and statuses
 - **Email Confirmations** — Automated email notifications via Resend after successful booking
@@ -25,7 +25,7 @@ AdAdda is a full-stack online advertisement booking platform similar to EasyBook
 | Backend    | Node.js, Express.js                     |
 | Database   | MongoDB (Mongoose)                      |
 | Auth       | JWT (JSON Web Tokens)                   |
-| Payments   | Razorpay                                |
+| Payments   | Stripe                                |
 | Email      | Resend                                  |
 | Storage    | Emergent Object Storage                 |
 
@@ -77,8 +77,8 @@ AdAdda is a full-stack online advertisement booking platform similar to EasyBook
    JWT_SECRET=your-jwt-secret
    RESEND_API_KEY=your-resend-api-key
    SENDER_EMAIL=onboarding@resend.dev
-   RAZORPAY_KEY_ID=your-razorpay-key-id
-   RAZORPAY_KEY_SECRET=your-razorpay-key-secret
+   STRIPE_KEY_ID=your-razorpay-key-id
+   STRIPE_KEY_SECRET=your-razorpay-key-secret
    ```
 
 3. **Seed the Database**
@@ -117,7 +117,7 @@ AdAdda is a full-stack online advertisement booking platform similar to EasyBook
 | GET    | `/api/newspapers`         | List all newspapers      |
 | POST   | `/api/bookingsNew/create` | Create a new booking     |
 | GET    | `/api/bookingsNew/my`     | Get user's bookings      |
-| POST   | `/api/payment/create-order` | Create Razorpay order  |
+| POST   | `/api/payment/create-order` | Create Stripe order  |
 | GET    | `/api/admin/bookings`     | Admin - all bookings     |
 | GET    | `/api/admin/revenue`      | Admin - revenue stats    |
 
