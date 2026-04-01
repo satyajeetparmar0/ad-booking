@@ -17,6 +17,10 @@ const PORT = 8001;
 
 // Middleware
 app.use(cors({ origin: process.env.CORS_ORIGINS || '*' }));
+
+// Stripe webhook needs raw body - must be before express.json()
+app.use('/api/payment/webhook', express.raw({ type: 'application/json' }));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

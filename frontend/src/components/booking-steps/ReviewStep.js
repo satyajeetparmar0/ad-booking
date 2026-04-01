@@ -1,100 +1,38 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import api from '@/utils/api';
 import { toast } from 'sonner';
-import { Loader2, CheckCircle, Calendar, MapPin, Newspaper, FileText, IndianRupee } from 'lucide-react';
+import { Loader2, CheckCircle, Calendar, MapPin, Newspaper, FileText, IndianRupee, CreditCard } from 'lucide-react';
 
 const ReviewStep = ({ data, prevStep }) => {
   const [processing, setProcessing] = useState(false);
-  const navigate = useNavigate();
 
   const handlePayment = async () => {
     setProcessing(true);
     try {
-      // Create Razorpay order
-      const orderResponse = await api.post('/payment/create-order', {
-        amount: data.price,
-        currency: 'INR'
+      const originUrl = window.location.origin;
+
+      const response = await api.post('/payment/create-checkout', {
+        bookingData: {
+          category: data.category,
+          city: data.city,
+          newspaperId: data.newspaperId,
+          newspaperName: data.newspaperName,
+          adType: data.adType,
+          adContent: data.adContent,
+          adImage: data.adImage || '',
+          publishDate: data.publishDate,
+          price: data.price
+        },
+        originUrl
       });
 
-      const { orderId, amount, keyId } = orderResponse.data;
-
-      // Initialize Razorpay
-      const options = {
-        key: keyId,
-        amount: amount,
-        currency: 'INR',
-        name: 'AdAdda',
-        description: `${data.category} Ad - ${data.newspaperName}`,
-        order_id: orderId,
-        handler: async function (response) {
-          try {
-            // Verify payment
-            const verifyResponse = await api.post('/payment/verify-payment', {
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_signature: response.razorpay_signature
-            });
-
-            if (verifyResponse.data.success) {
-              // Create booking
-              const bookingResponse = await api.post('/bookings-new/create', {
-                category: data.category,
-                city: data.city,
-                newspaperId: data.newspaperId,
-                adType: data.adType,
-                adContent: data.adContent,
-                adImage: data.adImage || '',
-                publishDate: data.publishDate,
-                price: data.price
-              });
-
-              // Update payment status
-              await api.patch(`/bookings-new/${bookingResponse.data.booking.bookingId}/payment`, {
-                paymentId: response.razorpay_payment_id,
-                paymentStatus: 'completed'
-              });
-
-              // Send email confirmation
-              try {
-                await api.post('/email/send-confirmation', {
-                  email: bookingResponse.data.booking.userEmail,
-                  name: bookingResponse.data.booking.userName,
-                  bookingId: bookingResponse.data.booking.bookingId,
-                  adTitle: `${data.category} in ${data.newspaperName}`,
-                  startDate: data.publishDate,
-                  totalPrice: data.price
-                });
-                toast.success('Payment successful! Booking confirmed. Check your email for details.');
-              } catch (emailError) {
-                toast.success('Payment successful! Booking confirmed.');
-              }
-
-              navigate('/dashboard');
-            }
-          } catch (error) {
-            toast.error('Payment verification failed');
-            setProcessing(false);
-          }
-        },
-        prefill: {
-          name: '',
-          email: ''
-        },
-        theme: {
-          color: '#F97316'
-        },
-        modal: {
-          ondismiss: function() {
-            setProcessing(false);
-            toast.error('Payment cancelled');
-          }
-        }
-      };
-
-      const razorpay = new window.Razorpay(options);
-      razorpay.open();
+      if (response.data.url) {
+        // Redirect to Stripe Checkout
+        window.location.href = response.data.url;
+      } else {
+        throw new Error('No checkout URL received');
+      }
     } catch (error) {
       toast.error(error.response?.data?.error || 'Payment initiation failed');
       setProcessing(false);
@@ -180,8 +118,14 @@ const ReviewStep = ({ data, prevStep }) => {
                   <IndianRupee className="w-5 h-5" />
                   Total Amount
                 </span>
-                <span className="text-3xl font-black text-orange-600">₹{data.price}</span>
+                <span className="text-3xl font-black text-orange-600">{'\u20B9'}{data.price}</span>
               </div>
+            </div>
+
+            {/* Stripe Badge */}
+            <div className="flex items-center justify-center gap-2 text-gray-400 text-xs">
+              <CreditCard className="w-4 h-4" />
+              <span>Secured by Stripe</span>
             </div>
           </div>
         </div>
@@ -199,12 +143,12 @@ const ReviewStep = ({ data, prevStep }) => {
             {processing ? (
               <>
                 <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                Processing...
+                Redirecting to Stripe...
               </>
             ) : (
               <>
-                <IndianRupee className="mr-2 h-5 w-5" />
-                Pay ₹{data.price}
+                <CreditCard className="mr-2 h-5 w-5" />
+                Pay {'\u20B9'}{data.price}
               </>
             )}
           </Button>

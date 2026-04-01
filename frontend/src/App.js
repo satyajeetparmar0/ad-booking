@@ -11,6 +11,7 @@ import AdListing from '@/pages/AdListing';
 import AdDetails from '@/pages/AdDetails';
 import ClientDashboard from '@/pages/ClientDashboard';
 import AdminDashboard from '@/pages/AdminDashboard';
+import PaymentSuccess from '@/pages/PaymentSuccess';
 import '@/App.css';
 
 const ProtectedRoute = ({ children, adminOnly = false }) => {
@@ -45,6 +46,14 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/ads" element={<AdListing />} />
             <Route path="/ads/:id" element={<AdDetails />} />
+            <Route 
+              path="/payment-success" 
+              element={
+                <ProtectedRoute>
+                  <PaymentSuccess />
+                </ProtectedRoute>
+              } 
+            />
             <Route 
               path="/dashboard" 
               element={
