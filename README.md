@@ -6,7 +6,7 @@ AdAdda is a full-stack online advertisement booking platform similar to EasyBook
 
 ## 🎥 Documentary Video
 
-To learn more about TechShop and see a walkthrough of its features, watch documentary video:
+To learn more about AdAdda and see a walkthrough of its features, watch documentary video:
 
 [![Watch Demo](https://img.youtube.com/vi/9kZc-0BXPwo/0.jpg)](https://youtu.be/9kZc-0BXPwo)
 
