@@ -130,6 +130,7 @@ To learn more about AdAdda and see a walkthrough of its features, watch document
 ## Contact
 
 - **Phone:** +91 9973634393
+- **LinkedIn:** https://www.linkedin.com/in/satyajeet-parmar/
 - **Landline:** 123-321-0000
 
 ## License
